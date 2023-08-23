@@ -1,0 +1,144 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Personal Inforamtion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card class="container">
+    <ion-card-content>
+      <form [formGroup]="myForm" (ngSubmit)="saveForm()">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Surname</ion-label>
+            <ion-input formControlName="surname" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Phone</ion-label>
+            <ion-input formControlName="phone" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" required></ion-input>
+          </ion-item>
+
+          <!-- Add CNAM ID section -->
+          <ion-item>
+            <ion-label>Do you have a CNAM ID?</ion-label>
+            <ion-select formControlName="hasCnamId">
+              <ion-select-option value="yes">Yes</ion-select-option>
+              <ion-select-option value="no">No</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Display CNAM ID input if user selects "Yes" -->
+          <ion-item *ngIf="myForm.get('hasCnamId')?.value === 'yes'">
+            <ion-label position="floating">CNAM ID (11 digits)</ion-label>
+            <ion-input formControlName="cnamId" pattern="[0-9]{11}"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Number of Stuff</ion-label>
+            <ion-select formControlName="stuffCount" required>
+              <ion-select-option value="0">0</ion-select-option>
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Number of Chambers</ion-label>
+            <ion-select formControlName="chamberCount" required>
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Days of the Week</ion-label>
+            <ion-select multiple="true" formControlName="workDays" required>
+              <ion-select-option value="Monday">Monday</ion-select-option>
+              <ion-select-option value="Tuesday">Tuesday</ion-select-option>
+              <ion-select-option value="Wednesday">Wednesday</ion-select-option>
+              <ion-select-option value="Thursday">Thursday</ion-select-option>
+              <ion-select-option value="Friday">Friday</ion-select-option>
+              <ion-select-option value="Saturday">Saturday</ion-select-option>
+              <ion-select-option value="Sunday">Sunday</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ng-container *ngFor="let day of myForm.controls['workDays'].value">
+            <ion-item>
+              <ion-label>Start Time for {{ day }}</ion-label>
+              <ion-datetime #dateTimeComponent presentation="time" [formControlName]="day + '_start'" required></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>End Time for {{ day }}</ion-label>
+              <ion-datetime presentation="time" [formControlName]="day + '_end'" required></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>Do you take a break?</ion-label>
+              <ion-radio-group [formControlName]="day + '_break'">
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label>Yes</ion-label>
+                      <ion-radio value="yes"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label>No</ion-label>
+                      <ion-radio value="no"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-radio-group>
+            </ion-item>
+            <ng-container *ngIf="myForm.get(day + '_break')?.value === 'yes'">
+              <ion-item>
+                <ion-label>Break Start Time for {{ day }}</ion-label>
+                <ion-datetime #dateTimeComponent presentation="time" [formControlName]="day + '_break_start'" required></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>Break End Time for {{ day }}</ion-label>
+                <ion-datetime presentation="time" [formControlName]="day + '_break_end'" required></ion-datetime>
+              </ion-item>
+            </ng-container>
+          </ng-container>         
+
+          <ion-item>
+            <ion-label>Work on Holidays</ion-label>
+            <ion-toggle formControlName="workOnHolidays"></ion-toggle>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Pause Duration</ion-label>
+            <ion-input type="text" formControlName="pauseDuration"></ion-input>
+          </ion-item>
+
+          <div class="button-group">
+            <ion-button expand="full" color="primary" type="submit">Save</ion-button>
+          </div>
+        </ion-list>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

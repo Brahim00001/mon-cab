@@ -1,0 +1,150 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>New Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card class="container">
+    <ion-card-content>
+      <form [formGroup]="myForm" (ngSubmit)="saveForm()">
+        <ion-list>
+          <!-- Name and Family Name -->
+          <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Family Name</ion-label>
+            <ion-input formControlName="familyName" required></ion-input>
+          </ion-item>
+
+          <!-- Age -->
+          <ion-item>
+            <ion-label position="floating">Age</ion-label>
+            <ion-input type="number" formControlName="age" min="1" max="125" required></ion-input>
+          </ion-item>
+
+          <!-- Durée de séance -->
+          <ion-item>
+            <ion-label position="floating">Session Duration (in minutes)</ion-label>
+            <ion-input type="number" formControlName="sessionDuration" required></ion-input>
+          </ion-item>
+
+          <!-- Preferences -->
+          <ion-item>
+            <ion-label>Preferences</ion-label>
+            <ion-select multiple="true" formControlName="preferences">
+              <ion-select-option value="Monday">Monday</ion-select-option>
+              <ion-select-option value="Tuesday">Tuesday</ion-select-option>
+              <ion-select-option value="Wednesday">Wednesday</ion-select-option>
+              <ion-select-option value="Thursday">Thursday</ion-select-option>
+              <ion-select-option value="Friday">Friday</ion-select-option>
+              <ion-select-option value="Saturday">Saturday</ion-select-option>
+              <ion-select-option value="Sunday">Sunday</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Avis-medecin -->
+          <ng-container formGroupName="avisMedecin">
+            <ion-item>
+              <ion-label>Nombre de séance</ion-label>
+              <ion-input type="number" formControlName="nombreSeance" max="99" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Fréquence (Number of sessions per week)</ion-label>
+              <ion-input type="number" formControlName="frequence" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Tarif séance</ion-label>
+              <ion-input type="number" formControlName="tarifSeance" min="10" max="99" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Date de début</ion-label>
+              <ion-datetime #dateTimeComponent presentation="date" formControlName="dateDebut" required></ion-datetime>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Medecin traitant</ion-label>
+              <ion-input formControlName="medecinTraitant" required></ion-input>
+            </ion-item>
+          </ng-container>
+
+          <!-- Prise en charge -->
+          <ion-item>
+            <ion-label>Prise en charge</ion-label>
+            <ion-select formControlName="priseEnCharge">
+              <ion-select-option value="CNAM">CNRPS</ion-select-option>
+              <ion-select-option value="CNSS">CNSS</ion-select-option>
+              <ion-select-option value="NONE">NONE</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Prise en charge details -->
+          <ng-container *ngIf="showPriseEnChargeDetails">
+            <ng-container formGroupName="priseEnChargeDetails">
+              <ion-item *ngIf="myForm.get('priseEnCharge')?.value === 'CNAM'">
+                <ion-label>CNAM ID (11 digits)</ion-label>
+                <ion-input formControlName="cnamId" pattern="[0-9]{11}" required></ion-input>
+              </ion-item>
+            
+              <ion-item *ngIf="myForm.get('priseEnCharge')?.value === 'CNRPS'">
+                <ion-label>CNRPS ID (10 digits)</ion-label>
+                <ion-input formControlName="cnrpsId" pattern="[0-9]{10}" required></ion-input>
+              </ion-item>
+            
+              <ion-item *ngIf="myForm.get('priseEnCharge')?.value === 'CNSS'">
+                <ion-label>CNSS ID (12 digits)</ion-label>
+                <ion-input formControlName="cnssId" pattern="[0-9]{12}" required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Nombre de séance</ion-label>
+                <ion-input type="number" formControlName="nombreSeance" required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Fréquence (Number of sessions per week)</ion-label>
+                <ion-input type="number" formControlName="frequence" required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Date de début</ion-label>
+                <ion-datetime #dateTimeComponent presentation="date" formControlName="dateDebut1" required></ion-datetime>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Statue</ion-label>
+                <ion-select formControlName="statue" required>
+                  <ion-select-option value="Validéé">Validéé</ion-select-option>
+                  <ion-select-option value="En attente">En attente</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Nom de l'assuré</ion-label>
+                <ion-input formControlName="nomAssure" required></ion-input>
+              </ion-item>
+            </ng-container>
+          </ng-container>
+
+          <ion-item>
+            <ion-label>Pièce-jointe (PDF)</ion-label>
+            <ion-input type="file" formControlName="attachment" accept=".pdf"></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+        <div class="button-group">
+          <ion-button expand="full" color="primary" type="submit">Save</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

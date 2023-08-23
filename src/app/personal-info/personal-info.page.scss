@@ -1,0 +1,114 @@
+/* Your global CSS styles remain the same */
+
+/* Your component styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .container strong {
+    font-size: 20px;
+    line-height: 26px;
+    margin-bottom: 10px;
+  }
+  
+  .container p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #8c8c8c;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  
+  .container a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0 10px;
+    width: 100%;
+  }
+  
+  .button-group ion-button {
+    flex-grow: 1;
+    margin: 0 5px;
+  }
+  
+  .shift-label,
+  .break-label {
+    flex-basis: 50%;
+    text-align: center;
+  }
+  
+  .shift-timers,
+  .break-timers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .shift-timers ion-datetime,
+  .break-timers ion-datetime {
+    margin: 0 10px;
+  }
+  
+  .shift-timer-separator,
+  .break-timer-separator {
+    margin: 0 5px;
+  }
+  
+  ion-datetime {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --border-radius: 8px;
+    --border-width: 2px;
+    --border-color: var(--ion-color-primary);
+    --background-color: var(--ion-color-light);
+    --color: var(--ion-color-dark);
+    --placeholder-color: var(--ion-color-medium);
+    width: auto;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  ion-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  /* Update the ion-content styles to add padding */
+  ion-content {
+    --ion-background-color: #f5f5f5;
+    /* Add padding to the top, bottom, and sides */
+    --ion-padding-start: 16px;
+    --ion-padding-end: 16px;
+    --ion-padding-top: 16px;
+    --ion-padding-bottom: 16px;
+  }
+  
+  ion-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+  }
+  
